@@ -18,6 +18,17 @@ end
 
 desc 'prepare 512px tiles'
 task :et512 do
+  sh "rake nodata" unless File.exist?(NODATA_PATH)
+  13.upto(MAXZOOM512) {|z|
+    sh <<-EOS
+find #{ET256_DIR}/#{z} | grep webp$ | \
+parallel -j #{J} --line-buffer ruby et512.rb {}
+    EOS
+  }
 end
 
+desc 'prepare a nodata file'
+task :nodata do
+  sh "ppmmake '#0186a0' 256 256 > #{TMP_DIR}/nodata.ppm"
+end
 

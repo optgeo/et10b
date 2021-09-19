@@ -42,10 +42,10 @@ rm #{ppm_path}
 end
 
 zxy = ARGV[0].split(',')[0].split('/').map {|v| v.to_i}
-p zxy
 webp_path = "#{ET256_DIR}/#{zxy.join('/')}.webp"
 if File.exist?(webp_path)
-  p 'skip'
+  print "skip #{zxy.join('/')}\n"
+  exit true
 else
   src_image = PNM.read(StringIO.new(
     `curl #{SRC_BASE_URL}/#{zxy.join('/')}.png | pngtopnm`
