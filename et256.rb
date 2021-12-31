@@ -44,13 +44,19 @@ end
 zxy = ARGV[0].split(',')[0].split('/').map {|v| v.to_i}
 webp_path = "#{ET256_DIR}/#{zxy.join('/')}.webp"
 if File.exist?(webp_path)
-  print "skip #{zxy.join('/')}\n"
+  $stderr.print "."
+  #$stderr.print "skip #{zxy.join('/')}\n"
   exit true
 else
-  src_image = PNM.read(StringIO.new(
-    `curl #{SRC_BASE_URL}/#{zxy.join('/')}.png | pngtopnm`
-  ))
-  dst_image = transcode(src_image)
-  write(zxy, dst_image)
+  url = "#{SRC_BASE_URL}/#{zxy.join('/')}.png"
+  begin
+    src_image = PNM.read(StringIO.new(
+      `curl #{url} | pngtopnm`
+    ))
+    dst_image = transcode(src_image)
+    write(zxy, dst_image)
+  rescue
+    $stderr.print "error processing #{url}."
+  end
 end
 

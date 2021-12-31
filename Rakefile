@@ -19,7 +19,7 @@ end
 desc 'prepare 512px tiles'
 task :et512 do
   sh "rake nodata" unless File.exist?(NODATA_PATH)
-  13.upto(MAXZOOM512) {|z|
+  0.upto(MAXZOOM512) {|z|
     sh <<-EOS
 find #{ET256_DIR}/#{z} | grep webp$ | \
 parallel -j #{J} --line-buffer ruby et512.rb {}

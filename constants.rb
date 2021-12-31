@@ -8,7 +8,8 @@ MAXZOOM512 = 13
 SRC_BASE_URL = "https://maps.gsi.go.jp/xyz/dem_png"
 BASE_URL = "https://x.optgeo.org/et10b"
 
-TMP_DIR = '/mnt/ramdisk'
+#TMP_DIR = '/mnt/ramdisk'
+TMP_DIR = '/tmp'
 ET256_DIR = 'et256'
 ET512_DIR = 'et512'
 
